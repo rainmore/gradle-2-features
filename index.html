@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Gradle 2 Features</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=3.0, initial-scale=1.0, user-scalable=yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css"> -->
+    <link rel="stylesheet" href="libs/highlight/styles/solarized_dark.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jmpress.js"></script>
+    <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        $.jmpress("template", "auto", {
+            children: function(idx) {
+                return {
+                    y: 400
+                    ,x: -300 + idx * 300
+                    ,template: "auto"
+                    ,scale: 0.3
+                }
+            }
+        });
+
+    </script>
+</head>
+<body>
+
+<div id="jmpress" data-template="auto">
+    <section id="slide-1">
+        <div class="jumbotron">
+            <center>
+                <h1>Gradle</h1>
+                <h3>June 2014</h3>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <h5>Jie Rong (Felix)</h5>
+                <h5>rainmore24@gmail.com</h5>
+            </center>
+        </div>
+    </section>
+    <section id="slide-2">
+        <h1>Why Gradle?</h1>
+        <h3>Why not Ant?</h3>
+        <ul>
+            <li>No data types or local variables</li>
+            <li>No way to express a loop and hard to make conditions executions</li>
+            <li>Hard to write reusable code</li>
+            <li>XML</li>
+        </ul>
+        <h3>Why not Maven?</h3>
+        <ul>
+            <li>“conventions” based on “best practices”</li>
+            <li>Not way to program part of your build</li>
+            <li>Dependencies handling limitation</li>
+            <li>Sequent life cycles</li>
+        </ul>
+    </section>
+    <section id="slide-3">
+        <h1>What is Gradle</h1>
+        <blockquote><em>Gradle</em> combines the power and flexibility of <em>Ant</em> with the dependency management and conventions of <em>Maven</em> into a more effective way to build.
+        <br /><br />
+            <footer><cite><a href="http://www.gradle.org/" target="_blank">www.gradle.org</a></cite></footer>
+        </blockquote>
+
+    </section>
+
+    <section id="slide-4">
+        <h1>Gradle features</h1>
+        <ul>
+            <li>flexible general purpose build tool (like Ant)</li>
+            <li>support for multi-project builds</li>
+            <li>powerful dependency management</li>
+            <li>build scripts instead of declarative build systems</li>
+            <li>Ant tasks are first class citizens</li>
+            <li>Free and open source</li>
+            <li>Groovy
+                <ul>
+                    <li>dynamic language inspired by languages like Python, Ruby and Smalltalk</li>
+                    <li>transparent for Java people</li>
+                    <li>Java syntax & type system</li>
+                </ul>
+            </li>
+        </ul>
+
+    </section>
+    <section id="slide-5">
+        <h1>Gradle 2.0 vs Gradle 1.*</h1>
+        <ul>
+            <li>Groovy 2.3 vs Groovy 1.*</li>
+            <li>Support Java 8</li>
+            <li>Drop Java 5</li>
+            <li>New API and improvement</li>
+            <li>Terminal integration</li>
+            <li>...</li>
+        </ul>
+    </section>
+    <section id="slide-6">
+        <h1>How do we use Gradle in Platform</h1>
+        <ul>
+            <li>build main project
+                <ul>
+                    <li>configuration</li>
+                    <li>web server setup</li>
+                    <li>source code update</li>
+                    <li>database build/rebuild/evolve</li>
+                    <li>content rebuild</li>
+                    <li>phrases update</li>
+                    <li>cron job setup</li>
+                </ul>
+            </li>
+            <li>sub project build
+                <ul>
+                    <li>Active</li>
+                    <li>Online Training</li>
+                    <li>DeepThought (cron stats)</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section id="slide-7">
+        <h1>How do we use Gradle in next-gen</h1>
+        <ul>
+            <li>build element sub project</li>
+            <li>build css from scss</li>
+            <li>build javascript</li>
+            <li>build jars</li>
+            <li>upload jars in our maven repository</li>
+            <li>unit testing</li>
+            <li>code check</li>
+            <li>trigger functional test</li>
+        </ul>
+    </section>
+    <section id="slide-8">
+        <h1>Gradle Task Example 1</h1>
+        <p>We print out somthing from Gradle</p>
+            <pre><code class="bash">
+# run example
+$ gradle foo ⏎
+
+# print in terminal
+$ Hello World!
+</code>
+</pre>
+            <section>
+                    <pre class="javascript">
+// define a task
+task foo {
+    group = 'Example'
+    description = 'A hello world example'
+    s = "Hello World"
+
+    doLast {
+        println s + "!"
+    }
+}
+                    </pre>
+                    </section>
+                <section>
+                    <pre lass="java">
+// a short version of task
+task foo << {
+    println "Hello World!"
+}
+                    </pre>
+        </section>
+    </section>
+    <section id="slide-9">
+        <h1>Gradle Task Example 2</h1>
+        <p>We are going to run some command line from Gradle</p>
+        <pre><code class="bash">
+# run example
+$ gradle foo ⏎
+
+# print in terminal
+$ Hello World!
+</code>
+</pre>
+        <section>
+            <pre class="java">
+// execute echo 'hello world' in terminal
+task foo(type: Exec) << {
+    workingDir '.'
+    executable 'echo'
+    args 'Hello World'
+
+    //store the output instead of printing to the console:
+    standardOutput = new ByteArrayOutputStream()
+
+    //extension method stopTomcat.output() can be used to obtain the output:
+    ext.output = {
+        return standardOutput.toString()
+    }
+}</pre>
+        </section>
+        <section>
+            <pre class="java">
+// short version
+task foo(type: Exec) << {
+    workingDir '.'
+    commandLine 'echo' , '"Hello World"'
+
+    //store the output instead of printing to the console:
+    standardOutput = new ByteArrayOutputStream()
+
+    //extension method stopTomcat.output() can be used to obtain the output:
+    ext.output = {
+        return standardOutput.toString()
+    }
+}</pre>
+        </section>
+
+    </section>
+    <section id="slide-tool">
+        <h1>Credits</h1>
+        <ul>
+            <li>Jmpress <a href="http://jmpressjs.github.io/jmpress.js/#/home" target="_blank">jmpressjs.github.io</a></li>
+            <li>highlightjs <a href="http://highlightjs.org/" target="_blank">highlightjs.org</a></li>
+            <li>Bootstrap v3.1.1 <a href="http://getbootstrap.com/" target="_blank">getbootstrap.com</a></li>
+            <li>jQuery <a href="http://jquery.com/" target="_blank">jquery.com</a></li>
+            <li>SCSS <a href="http://sass-lang.com/" target="_blank">sass-lang.com</a></li>
+            <li>Compass <a href="http://compass-style.org/" target="_blank">compass-style.org</a></li>
+            <li>Sublime <a href="http://www.sublimetext.com/" target="_blank">www.sublimetext.com</a></li>
+            <li>GitHub <a href="https://github.com/" target="_blank">github.com</a></li>
+        </ul>
+    </section>
+    <section id="slide-references">
+        <h1>References</h1>
+        <ul>
+            <li><a href="http://www.pointsoftware.ch/de/under-the-hood-gradle-to-the-rescue-part-1-we-need-a-better-build-tool/" target="_blank">GRADLE TO THE RESCUE, PART 1 – WE NEED A BETTER BUILD TOOL</a>
+            </li>
+        </ul>
+    </section>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('#jmpress').jmpress({
+        stepSelector: "section"
+        ,hash: { use: true }
+    });
+
+    $('pre,code').each(function(i, e) {hljs.highlightBlock(e)});
+});
+
+</script>
+
+
+</body>
+</html>
