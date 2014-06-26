@@ -256,7 +256,42 @@ I'm task number 0
     <section id="slide-11">
         <h1>Gradle 2.0</h1>
         <h3>Java 8</h3>
-
+        <ul>
+            <li>Lambda expressions</li>
+            <li>Parallel operations</li>
+            <li>Java + JavaScript = ❤</li>
+            <li>New date / time APIs</li>
+            <li>Concurrent accumulators</li>
+        </ul>
+        <section>
+            <h3>Lambda expressions</h3>
+            <pre class="java">
+// example 1
+() -> System.out.println(this)
+(String str) -> System.out.println(str)
+str -> System.out.println(str)
+(String s1, String s2) -> { return s2.length() - s1.length(); }
+(s1, s2) -> s2.length() - s1.length()            
+            
+// example 2            
+Map<Person.Sex, List<Person>> byGender =
+    roster.stream().collect(Collectors.groupingBy(Person::getGender));
+            </pre>
+        </section>
+        <section>
+            <h3>Parallel operations</h3>
+            <pre class="java">
+ConcurrentMap<Person.Sex, List<Person>> byGender =
+    roster.parallelStream().collect(Collectors.groupingByConcurrent(Person::getGender));
+            </pre>
+        </section>
+        <section>
+            <h3>Scope</h3>
+            <pre class="java">
+ConcurrentMap<Person.Sex, List<Person>> byGender =
+    roster.parallelStream().collect(Collectors.groupingByConcurrent(Person::getGender));
+            </pre>
+        </section>
     </section>
     <section id="slide-12">
         <h1>Gradle 2.0</h1>
@@ -356,6 +391,8 @@ Previously, Gradle would accept a class with a single constructor with multiple 
         <ul>
             <li><a href="http://www.pointsoftware.ch/de/under-the-hood-gradle-to-the-rescue-part-1-we-need-a-better-build-tool/" target="_blank">GRADLE TO THE RESCUE, PART 1 – WE NEED A BETTER BUILD TOOL</a>
             </li>
+            <li><a href="http://www.takipiblog.com/2014/03/18/5-features-in-java-8-that-will-change-how-you-code/">5 Features In Java 8 That WILL Change How You Code</a></li>
+            <li><a href="https://leanpub.com/whatsnewinjava8/read">What's New in Java 8</a></li>
         </ul>
     </section>
 </div>
