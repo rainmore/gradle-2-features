@@ -92,17 +92,6 @@
 
     </section>
     <section id="slide-5">
-        <h1>Gradle 2.0 vs Gradle 1.*</h1>
-        <ul>
-            <li>Groovy 2.3 vs Groovy 1.*</li>
-            <li>Support Java 8</li>
-            <li>Drop Java 5</li>
-            <li>New API and improvement</li>
-            <li>Terminal integration</li>
-            <li>...</li>
-        </ul>
-    </section>
-    <section id="slide-6">
         <h1>How do we use Gradle in Platform</h1>
         <ul>
             <li>build main project
@@ -125,7 +114,7 @@
             </li>
         </ul>
     </section>
-    <section id="slide-7">
+    <section id="slide-6">
         <h1>How do we use Gradle in next-gen</h1>
         <ul>
             <li>build element sub project</li>
@@ -138,7 +127,7 @@
             <li>trigger functional test</li>
         </ul>
     </section>
-    <section id="slide-8">
+    <section id="slide-7">
         <h1>Gradle Task Example 1</h1>
         <p>We print out somthing from Gradle</p>
             <pre><code class="bash">
@@ -155,10 +144,10 @@ $ Hello World!
 task foo {
     group = 'Example'
     description = 'A hello world example'
-    s = "Hello World"
+    s = "hello world"
 
     doLast {
-        println s + "!"
+        println s.toUpperCase() + "!"
     }
 }
                     </pre>
@@ -172,7 +161,7 @@ task foo << {
                     </pre>
         </section>
     </section>
-    <section id="slide-9">
+    <section id="slide-8">
         <h1>Gradle Task Example 2</h1>
         <p>We are going to run some command line from Gradle</p>
         <pre><code class="bash">
@@ -216,8 +205,65 @@ task foo(type: Exec) << {
     }
 }</pre>
         </section>
+    </section>
+    <section id="slide-9">
+        <h1>More examples</h1>
+        <p>...</p>
+        <section>
+            <pre class="java">
+// extra task properties
+task myTask {
+    ext.myProperty = "myValue"
+}
+
+task printTaskProperties << {
+    println myTask.myProperty
+}</pre>
+            <pre class="bash">
+> gradle -q printTaskProperties
+myValue </pre>
+        </section>
+        <section>
+            <pre class="java">
+// manipulating existing tasks
+task myTask {
+    ext.myProperty = "myValue"
+}
+
+task printTaskProperties << {
+    println myTask.myProperty
+}
+            </pre>
+            <pre class="bash">
+> gradle -q task0
+I'm task number 2
+I'm task number 3
+I'm task number 0
+        </pre>
+        </section>
+    </section>
+    <section id="slide-10">
+        <h1>Gradle 2.0</h1>
+        <ul>
+            <li>Groovy 2.3 vs Groovy 1.*</li>
+            <li>Support Java 8</li>
+            <li>Drop Java 5</li>
+            <li>New API and improvement</li>
+            <li>Terminal integration</li>
+            <li>...</li>
+        </ul>
+    </section>
+    <section id="slide-11">
+        <h1>Gradle 2.0</h1>
+        <h3>Java 8</h3>
 
     </section>
+    <section id="slide-12">
+        <h1>Gradle 2.0</h1>
+        <h3>Groovy 2.3</h3>
+
+    </section>
+    <section id="slide-13"></section>
     <section id="slide-tool">
         <h1>Credits</h1>
         <ul>
