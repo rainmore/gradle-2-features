@@ -258,10 +258,12 @@ I'm task number 0
         <h3>Java 8</h3>
         <ul>
             <li>Lambda expressions</li>
-            <li>Parallel operations</li>
-            <li>Java + JavaScript = ❤</li>
+            <li>Default Methods</li>
+            <li>Streams</li>
+            <li>Optional</li>
             <li>New date / time APIs</li>
-            <li>Concurrent accumulators</li>
+            <li>Functional Programming</li>
+            <li>...</li>
         </ul>
         <section>
             <h3>Lambda expressions</h3>
@@ -269,33 +271,88 @@ I'm task number 0
 // example 1
 () -> System.out.println(this)
 (String str) -> System.out.println(str)
-str -> System.out.println(str)
-(String s1, String s2) -> { return s2.length() - s1.length(); }
-(s1, s2) -> s2.length() - s1.length()            
-            
-// example 2            
-Map<Person.Sex, List<Person>> byGender =
-    roster.stream().collect(Collectors.groupingBy(Person::getGender));
+str -> System.out.println(str);
+(String s1, String s2) -> {return s2.length() - s1.length();}
+(s1, s2) -> s2.length() - s1.length()
+
+Arrays.sort(strArray, (String s1, String s2) -> s2.length() - s1.length());
+</pre>
+        </section>
+        <section>
+            <h3>Default Methods</h3>
+            <ul>
+                <li>can be added to any interfaces.    </li>
+                <li>can be override in the implementation</li>
+                <li>support multiple defaults</li>
+                <li>Static Methods on Interface</li>
+            </ul>
+        </section>
+        <section>
+            <pre class="java">
+// Iterable API
+@FunctionalInterface
+public interface Iterable {
+Iterator iterator();
+default void forEach(Consumer&lt;? super T&gt; action) {
+    Objects.requireNonNull(action);
+        for (T t : this) {
+            action.accept(t);
+        }
+    }
+}
+        </pre>
+        </section>
+        <section>
+            <pre class="java">
+interface Foo {
+    default void talk() {
+        out.println("Foo!");
+    }
+}
+interface Bar {
+    default void talk() {
+        out.println("Bar!");
+    }
+}
+class FooBar implements Foo, Bar {
+    @Override
+    void talk() { Foo.super.talk(); }
+}
             </pre>
         </section>
         <section>
-            <h3>Parallel operations</h3>
-            <pre class="java">
-ConcurrentMap<Person.Sex, List<Person>> byGender =
-    roster.parallelStream().collect(Collectors.groupingByConcurrent(Person::getGender));
-            </pre>
+            <h3>Streams</h3>
+            <ul>
+                <li><code>java.util.stream</code></li>
+                <li>
+                    Streaming Collections
+                    <ul>
+                        <li><code>stream()</code> Returns a sequential Stream with the collection as its source</li>
+                        <li><code>parallelStream()</code> Returns a possibly parallel Stream with the collection as its source.</li>
+                    </ul>
+                </li>
+            </ul>
         </section>
         <section>
-            <h3>Scope</h3>
-            <pre class="java">
-ConcurrentMap<Person.Sex, List<Person>> byGender =
-    roster.parallelStream().collect(Collectors.groupingByConcurrent(Person::getGender));
-            </pre>
+            <h3>Optional</h3>
+            <ul>
+                <li><code>java.util.Optional</code></li>
+                <li><code>orElse(T)</code> Returns the given default value if the Optional is empty</li>
+                <li><code>orElseGet(Supplier<T>)</code>  Calls on the given Supplier to provide a value if the Optional is empty</li>
+                <li>supports Stream</li>
+            </ul>
         </section>
     </section>
     <section id="slide-12">
         <h1>Gradle 2.0</h1>
         <h3>Groovy 2.3</h3>
+        <ul>
+            <li>Support Java 8</li>
+            <li>Trait</li>
+            <li>New NIO module for Java 7+</li>
+            <li>Performance improvements</li>
+            <li>JSON slurper and builder enhancements</li>
+            <li>...</li>
 
     </section>
     <section id="slide-13">
@@ -303,7 +360,7 @@ ConcurrentMap<Person.Sex, List<Person>> byGender =
         <p>Properties are no longer dynamically created on assignment</p>
         <pre class="java">
 project.myProperty = 'some value'
-assert myProperty == 'some value'            
+assert myProperty == 'some value'
         </pre>
         <pre class="java">
 def myProperty = 'some value'
@@ -324,8 +381,10 @@ list += [configurations.compile]
 
 //Gradle 2.0:
 list += configurations.compile //appends the files of the configuration (triggering dependency resolution!)
-list += [configurations.compile] //appends the configuration instance           
-
+list += [configurations.compile] //appends the configuration instance
+</pre>
+    <section>
+        <pre>
 //Instead:
 eclipse.classpath.plusConfigurations += configurations.someConfig
 idea.module.scopes.COMPILE.plus += configurations.someConfig
@@ -334,6 +393,7 @@ idea.module.scopes.COMPILE.plus += configurations.someConfig
 eclipse.classpath.plusConfigurations += [configurations.someConfig]
 idea.module.scopes.COMPILE.plus += [configurations.someConfig]
         </pre>
+    </section>
     </section>
     <section id="slide-15">
         <h1>Gradle 2.0</h1>
@@ -357,9 +417,9 @@ The <code>Project.tarTree()</code> and <code>zipTree()</code> methods no longer 
     <h3>Tasks cannot be changed after task has started execution</h3>
 <p>Certain operations on a task are no longer possible once the task has started execution:</p>
 <ul>
-<li>Changing the actions of the task, such as calling doLast { // some action }</li>
-<li>Changing the dependencies of the task, such as calling dependsOn 'someTask'</li>
-<li>Changing the inputs and outputs of the task, such as calling inputs.file('build/some-file.txt')</li>    
+    <li>Changing the actions of the task, such as calling <code>doLast { // some action }</code></li>
+    <li>Changing the dependencies of the task, such as calling <code>dependsOn 'someTask'</code></li>
+    <li>Changing the inputs and outputs of the task, such as calling <code>inputs.file('build/some-file.txt')</code></li>
 </ul>
 
 <p>This behavior was deprecated and now fails with an exception.</p>
@@ -367,9 +427,9 @@ The <code>Project.tarTree()</code> and <code>zipTree()</code> methods no longer 
     <section id="slide-17">
      <h1>Gradle 2.0</h1>
     <h3>Task constructor injection changes</h3>
-<p>Tasks are now constructed according to JSR-330. This means that a task type must either have a single public zero-args constructor, or annotate one constructor with @Inject.</p>
+    <p>Tasks are now constructed according to <code>JSR-330 // dependency injection for Java</code>. This means that a task type must either have a single public <strong>zero-args</strong> constructor, or annotate one constructor with <code>@Inject</code>.</p>
 <p>
-Previously, Gradle would accept a class with a single constructor with multiple parameters that was not annotated with @Inject. This was deprecated in Gradle 1.2 and is now an error.
+    Previously, Gradle would accept a class with a single constructor with multiple parameters that was not annotated with <code>@Inject</code>. This was deprecated in Gradle 1.2 and is now an error.
 
 </p>
     </section>
@@ -393,6 +453,9 @@ Previously, Gradle would accept a class with a single constructor with multiple 
             </li>
             <li><a href="http://www.takipiblog.com/2014/03/18/5-features-in-java-8-that-will-change-how-you-code/">5 Features In Java 8 That WILL Change How You Code</a></li>
             <li><a href="https://leanpub.com/whatsnewinjava8/read">What's New in Java 8</a></li>
+            <li><a href="http://groovy.codehaus.org/Groovy+2.3+release+notes">Groovy 2.3 release notes</a></li>
+            <li><a href="http://www.gradle.org/docs/release-candidate/release-notes#task-constructor-changes">Gradle Release Note 2.0-RC</a></li>
+            <li><a href="http://www.gradle.org/docs/release-candidate/userguide/userguide_single.html">Gradle User Guide 2.0-RC</a></li>
         </ul>
     </section>
 </div>
@@ -403,7 +466,7 @@ $(function() {
         ,hash: { use: true }
     });
 
-    $('pre,code').each(function(i, e) {hljs.highlightBlock(e)});
+    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
 });
 
 </script>
